@@ -1,5 +1,5 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
-  IsBoolean,
   IsEmail,
   IsNotEmpty,
   IsString,
@@ -8,21 +8,21 @@ import {
 } from 'class-validator';
 import { MAX_NAME_LENGTH, MIN_NAME_LENGTH } from 'src/common/constants';
 import { IsStrongPassword } from 'src/common/decorators/is-strong-password.decorator';
-export class CreateUserDto {
+
+export class SignUpDto {
+  @ApiProperty()
   @IsEmail()
   @IsNotEmpty()
   email: string;
 
+  @ApiProperty()
   @IsString()
-  @IsStrongPassword() // Apply password checks
+  @IsStrongPassword()
   password: string;
 
-  // Only for extensibility
+  @ApiProperty()
   @IsNotEmpty()
   @MinLength(MIN_NAME_LENGTH)
   @MaxLength(MAX_NAME_LENGTH)
   name: string;
-
-  @IsBoolean()
-  isVerified: boolean;
 }

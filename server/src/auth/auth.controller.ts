@@ -1,11 +1,12 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { SignInDto } from './dtos/signin.dto';
-import { UsersService } from 'src/users/providers/users.service';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { SignUpDto } from './dtos/signup.dto';
+import { AuthService } from './providers/auth.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly authService: AuthService) {}
   @ApiOperation({
     summary: 'Endpoint to sign users in',
   })
@@ -13,12 +14,18 @@ export class AuthController {
     status: 200,
     description: 'User successfully signed in',
   })
-  @Post()
+  @Post('login')
   @HttpCode(HttpStatus.OK)
   public signIn(@Body() signInDto: SignInDto) {
-    console.log(signInDto);
-    const user = this.usersService.findUserByEmail(signInDto.email);
-    console.log(user);
-    return 'temp-token';
+    const user = this.authService.signIn(signInDto);
+    return user;
+  }
+
+  @ApiOperation({
+    summary: 'Endpoint to register user',
+  })
+  @Post('register')
+  public signUp(@Body() signUpDto: SignUpDto) {
+    return this.authService.signUp(signUpDto);
   }
 }

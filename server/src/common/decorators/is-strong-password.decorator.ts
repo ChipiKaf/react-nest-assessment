@@ -1,7 +1,7 @@
 import { applyDecorators } from '@nestjs/common';
 import { IsNotEmpty, Matches, MinLength } from 'class-validator';
 import { MIN_PASSWORD_LENGTH } from '../constants';
-import { ErrorStrings } from '../error-strings';
+import { ErrorStrings } from '../error-strings.enum';
 
 /**
  * Check if password meets the desired strength requirements

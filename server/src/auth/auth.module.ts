@@ -4,18 +4,26 @@ import { UsersModule } from 'src/users/users.module';
 import { AuthService } from './providers/auth.service';
 import { HashingProvider } from './providers/hashing.provider';
 import { BcryptProvider } from './providers/bcrypt.provider';
-import { SignInProvider } from './providers/sign-in.provider';
-
+import { LocalStrategy } from './strategies/local.strategy';
+import { JwtStrategy } from './strategies/jwt.strategy';
+import { ConfigModule } from '@nestjs/config';
+import jwtConfig from 'src/auth/config/jwt.config';
+import { JwtModule } from '@nestjs/jwt';
 @Module({
   controllers: [AuthController],
-  imports: [forwardRef(() => UsersModule)],
+  imports: [
+    forwardRef(() => UsersModule),
+    ConfigModule.forFeature(jwtConfig),
+    JwtModule.registerAsync(jwtConfig.asProvider()),
+  ],
   providers: [
     AuthService,
     {
       provide: HashingProvider,
       useClass: BcryptProvider,
     },
-    SignInProvider,
+    LocalStrategy,
+    JwtStrategy,
   ],
   exports: [HashingProvider],
 })

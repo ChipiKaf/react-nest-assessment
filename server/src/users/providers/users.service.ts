@@ -10,7 +10,7 @@ import { ConfigService } from '@nestjs/config';
 import { Model } from 'mongoose';
 import { User } from '../user.schema';
 import { InjectModel } from '@nestjs/mongoose';
-import { ErrorStrings } from 'src/common/error-strings';
+import { ErrorStrings } from 'src/common/error-strings.enum';
 import { HashingProvider } from 'src/auth/providers/hashing.provider';
 /**
  * Handles connecting to users Table and business logic pertaining to user

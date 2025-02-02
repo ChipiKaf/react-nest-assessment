@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { MAX_NAME_LENGTH, MIN_NAME_LENGTH } from 'src/common/constants';
 @Schema()
 export class User extends Document {
   @Prop({
@@ -16,18 +17,10 @@ export class User extends Document {
   @Prop({
     type: String,
     isRequired: false,
+    maxlength: MAX_NAME_LENGTH,
+    minlength: MIN_NAME_LENGTH,
   })
-  firstName?: string;
-  @Prop({
-    type: String,
-    isRequired: false,
-  })
-  lastName?: string;
-  @Prop({
-    type: String,
-    isRequired: true,
-  })
-  isVerified: boolean;
+  name?: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

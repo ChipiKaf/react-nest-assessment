@@ -1,5 +1,4 @@
 import {
-  IsBoolean,
   IsEmail,
   IsNotEmpty,
   IsString,
@@ -22,7 +21,4 @@ export class CreateUserDto {
   @MinLength(MIN_NAME_LENGTH)
   @MaxLength(MAX_NAME_LENGTH)
   name: string;
-
-  @IsBoolean()
-  isVerified: boolean;
 }

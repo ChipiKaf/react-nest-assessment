@@ -2,6 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import cookieParser from 'cookie-parser';
+import * as mongoose from 'mongoose';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -17,6 +19,11 @@ async function bootstrap() {
       },
     }),
   );
+  mongoose.set('debug', true);
+  /**
+   * Middleware
+   */
+  app.use(cookieParser());
 
   /**
    * Swagger configuration

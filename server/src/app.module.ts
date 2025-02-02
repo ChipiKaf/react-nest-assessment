@@ -27,6 +27,7 @@ const ENV = process.env.NODE_ENV;
       useFactory: (configService: ConfigService) => ({
         uri: configService.get('database.connectionString'),
         dbName: configService.get('database.name'),
+        timeoutMS: 3000,
       }),
     }),
   ],

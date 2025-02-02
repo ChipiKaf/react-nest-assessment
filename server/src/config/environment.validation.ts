@@ -1,5 +1,6 @@
 import * as Joi from 'joi';
 import { Environments } from 'src/common/environments.enum';
+import { LogLevel } from 'src/common/log-levels.enum';
 
 // Validate environment variables and set defaults
 export default Joi.object({
@@ -17,4 +18,5 @@ export default Joi.object({
   JWT_TOKEN_AUDIENCE: Joi.string().default('localhost'),
   JWT_TOKEN_ISSUER: Joi.string().default('localhost'),
   JWT_ACCESS_TOKEN_TTL: Joi.string().default('3600'),
+  LOG_LEVEL: Joi.string().valid(LogLevel.INFO, LogLevel.WARN, LogLevel.ERROR).default(LogLevel.INFO)
 });

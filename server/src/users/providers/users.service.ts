@@ -3,7 +3,6 @@ import {
   forwardRef,
   Inject,
   Injectable,
-  RequestTimeoutException,
 } from '@nestjs/common';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { ConfigService } from '@nestjs/config';
@@ -12,6 +11,7 @@ import { User } from '../user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { ErrorStrings } from 'src/common/error-strings.enum';
 import { HashingProvider } from 'src/auth/providers/hashing.provider';
+import { DetailedInternalException } from 'src/errors/DetailedInternalError';
 /**
  * Handles connecting to users Table and business logic pertaining to user
  */
@@ -49,10 +49,7 @@ export class UsersService {
         // Duplicate entry
         throw new ConflictException(ErrorStrings.DUPLICATE_USER);
       }
-      throw new RequestTimeoutException(ErrorStrings.PROCESS_ERROR, {
-        description:
-          String(error) /** @Todo : Do not return this one, instead log it */,
-      });
+      throw new DetailedInternalException(ErrorStrings.PROCESS_ERROR, error);
     }
   }
 

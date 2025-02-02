@@ -4,6 +4,8 @@ import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
 import * as mongoose from 'mongoose';
+import { AppLogger } from './logger/app.logger';
+import { LoggingInterceptor } from './interceptors/logging.interceptor';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -19,11 +21,18 @@ async function bootstrap() {
       },
     }),
   );
-  mongoose.set('debug', true);
+  const logger = app.get(AppLogger);
+  app.useLogger(logger);
+  logger.log('Manual test log: logger is working', 'Bootstrap');
   /**
    * Middleware
    */
   app.use(cookieParser());
+
+  /**
+   * Interceptors
+   */
+  app.useGlobalInterceptors(new LoggingInterceptor(logger))
 
   /**
    * Swagger configuration

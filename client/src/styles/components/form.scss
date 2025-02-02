@@ -1,0 +1,30 @@
+@use "../base/typography";
+@use "../abstracts/variables";
+.form {
+  min-width: 20vw;
+  & &__group {
+    &:not(:last-child) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  & &__label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: typography.$font-md;
+    font-weight: typography.$weight-bold;
+  }
+
+  & &__input {
+    width: 100%;
+    padding: 0.3vh 0.3vw;
+    min-height: 4vh;
+    border: 1px solid rgba(64, 70, 40, 0.2);
+    border-radius: 0.2em;
+
+    &:focus {
+      outline: none;
+      border: 1px solid variables.$color-primary;
+    }
+  }
+}

@@ -1,0 +1,24 @@
+@use "../abstracts/variables";
+@use "../base/typography";
+// Buttons styles
+.btn {
+  user-select: none;
+  display: inline-block;
+  min-width: 7rem;
+  min-height: 3vh;
+  font-size: 1.3rem;
+  position: relative;
+  overflow: hidden;
+  padding: 1rem;
+  color: #fff;
+  transition: all 0.5s;
+  background-color: variables.$color-primary;
+  font-family: typography.$body-alt-font-family;
+  border: 1px solid variables.$color-primary;
+
+  &:hover {
+    cursor: pointer;
+    background-color: transparent;
+    color: variables.$color-primary;
+  }
+}

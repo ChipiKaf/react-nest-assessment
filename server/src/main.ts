@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import * as mongoose from 'mongoose';
 import { AppLogger } from './logger/app.logger';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
+import { GlobalExceptionFilter } from './filters/global-exception.filter';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -32,7 +33,12 @@ async function bootstrap() {
   /**
    * Interceptors
    */
-  app.useGlobalInterceptors(new LoggingInterceptor(logger))
+  app.useGlobalInterceptors(new LoggingInterceptor(logger));
+
+  /**
+   * Filters
+   */
+  app.useGlobalFilters(new GlobalExceptionFilter(logger));
 
   /**
    * Swagger configuration

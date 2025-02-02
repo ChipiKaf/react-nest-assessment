@@ -3,7 +3,6 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
-import * as mongoose from 'mongoose';
 import { AppLogger } from './logger/app.logger';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
 import { GlobalExceptionFilter } from './filters/global-exception.filter';

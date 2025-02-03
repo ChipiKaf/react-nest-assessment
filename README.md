@@ -31,18 +31,18 @@ This repository is split into two main parts:
 
 ## Environment variables
 You can setup your own environment variables by adding a .env file in the root directory and adding the following:
-1.  NODE_ENV: Specifies the environment in which the application is running (valid values: TEST, DEVELOPMENT, STAGING, PRODUCTION). Default = DEVELOPMENT.
+1.  ```NODE_ENV```: Specifies the environment in which the application is running (valid values: TEST, DEVELOPMENT, STAGING, PRODUCTION). Default = DEVELOPMENT.
 
-2.  DATABASE_CONNECTION_STRING: The MongoDB connection string used to connect to the database. Default = mongodb://root:password@localhost:27017/mydatabase?authSource=admin. // This is the connection string of the local db running in docker
+2.  ```DATABASE_CONNECTION_STRING```: The MongoDB connection string used to connect to the database. Default = mongodb://root:password@localhost:27017/mydatabase?authSource=admin. // This is the connection string of the local db running in docker
 
-3.  DATABASE_NAME: Specifies the name of the database to use. Default = mydatabase
+3.  ```DATABASE_NAME```: Specifies the name of the database to use. Default = mydatabase
 
-4.  JWT_SECRET: The secret key used to sign JSON Web Tokens. Default = my-secret-jwt-token.
+4.  ```JWT_SECRET```: The secret key used to sign JSON Web Tokens. Default = my-secret-jwt-token.
 
-5.  JWT_TOKEN_AUDIENCE: Specifies the intended recipient of the JWT. Default = localhost.
+5.  ```JWT_TOKEN_AUDIENCE```: Specifies the intended recipient of the JWT. Default = localhost.
 
-6.  JWT_TOKEN_ISSUER: Identifies the issuer of the JWT. Default = localhost.
+6.  ```JWT_TOKEN_ISSUER```: Identifies the issuer of the JWT. Default = localhost.
 
-7.  JWT_ACCESS_TOKEN_TTL: The time-to-live (TTL) for the JWT access token, expressed in seconds. Default = 3600.
+7.  ```JWT_ACCESS_TOKEN_TTL```: The time-to-live (TTL) for the JWT access token, expressed in seconds. Default = 3600.
 
-8.  LOG_LEVEL: Specifies the logging level for the application (valid values: INFO, WARN, ERROR). Default = INFO.
+8.  ```LOG_LEVEL```: Specifies the logging level for the application (valid values: INFO, WARN, ERROR). Default = INFO.

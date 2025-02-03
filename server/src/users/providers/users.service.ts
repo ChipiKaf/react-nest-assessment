@@ -3,6 +3,7 @@ import {
   forwardRef,
   Inject,
   Injectable,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { ConfigService } from '@nestjs/config';
@@ -11,7 +12,7 @@ import { User } from '../user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { ErrorStrings } from 'src/common/error-strings.enum';
 import { HashingProvider } from 'src/auth/providers/hashing.provider';
-import { DetailedInternalException } from 'src/errors/DetailedInternalError';
+import { AppLogger } from 'src/logger/app.logger';
 /**
  * Handles connecting to users Table and business logic pertaining to user
  */
@@ -32,6 +33,8 @@ export class UsersService {
      */
     @Inject(forwardRef(() => HashingProvider))
     private readonly hashingProvider: HashingProvider,
+
+    private logger: AppLogger,
   ) {}
 
   /**
@@ -49,7 +52,8 @@ export class UsersService {
         // Duplicate entry
         throw new ConflictException(ErrorStrings.DUPLICATE_USER);
       }
-      throw new DetailedInternalException(ErrorStrings.PROCESS_ERROR, error);
+      this.logger.error(String(error));
+      throw new InternalServerErrorException(ErrorStrings.PROCESS_ERROR);
     }
   }
 

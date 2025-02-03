@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { HttpException, HttpStatus } from '@nestjs/common';
 
 export class DetailedInternalException extends HttpException {
@@ -6,7 +5,7 @@ export class DetailedInternalException extends HttpException {
 
   constructor(
     public readonly message: string,
-    internalError: any,
+    internalError: unknown,
   ) {
     super(message, HttpStatus.INTERNAL_SERVER_ERROR);
     this.internalError = internalError;

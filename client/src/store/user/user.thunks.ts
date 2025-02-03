@@ -26,6 +26,7 @@ export const loginThunk = createAsyncThunk<
     const data: User = await response.json();
     return data;
   } catch (error) {
+    console.error(error);
     return thunkAPI.rejectWithValue("Network error during login");
   }
 });
@@ -54,6 +55,7 @@ export const signUpThunk = createAsyncThunk<
     const data: User = await response.json();
     return data;
   } catch (error) {
+    console.error(error);
     return thunkAPI.rejectWithValue("Network error during sign up");
   }
 });
@@ -80,6 +82,31 @@ export const checkAuthThunk = createAsyncThunk<
     const data: User = await response.json();
     return data;
   } catch (error) {
+    console.error(error);
     return thunkAPI.rejectWithValue("Network error during auth check");
+  }
+});
+
+export const logoutThunk = createAsyncThunk<
+  { message: string },
+  void,
+  { rejectValue: string }
+>("user/logout", async (_, thunkAPI) => {
+  try {
+    const response = await fetch(`${config.baseUrl}/api/auth/logout`, {
+      method: "POST",
+      credentials: "include",
+    });
+    if (!response.ok) {
+      const error = await response.json();
+      const message =
+        typeof error.message === "string" ? error.message : error.message[0];
+      return thunkAPI.rejectWithValue(message);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    return thunkAPI.rejectWithValue("Network error during logout");
   }
 });

@@ -11,8 +11,8 @@ import { ErrorStrings } from 'src/common/error-strings.enum';
 import { HashingProvider } from './hashing.provider';
 import { User } from 'src/users/user.schema';
 import { JwtService } from '@nestjs/jwt';
-import { DetailedInternalException } from 'src/errors/DetailedInternalError';
 import { AppLogger } from 'src/logger/app.logger';
+import { NotFoundError } from 'rxjs';
 
 @Injectable()
 export class AuthService {
@@ -36,6 +36,12 @@ export class AuthService {
     return {
       access_token: this.jwtService.sign(payload, { expiresIn: '15m' }),
     };
+  }
+
+  public async checkAuth(email: string) {
+    const user = await this.usersService.findUserByEmail(email);
+    if (!user) throw new NotFoundError(ErrorStrings.USER_NOT_FOUND);
+    return { email: user.email, name: user.name };
   }
 
   /**

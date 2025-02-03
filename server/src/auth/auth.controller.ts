@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
@@ -16,6 +17,7 @@ import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
 import { BaseController } from './BaseController';
 import { AuthenticatedRequest } from 'src/interfaces/authenticated-request.interface';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController extends BaseController {
@@ -67,5 +69,23 @@ export class AuthController extends BaseController {
     const { email, name } = signUpDto;
 
     return { email, name };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('me')
+  public async me(@Req() req: AuthenticatedRequest) {
+    return this.authService.checkAuth(req.user.email);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('logout')
+  @HttpCode(HttpStatus.OK)
+  public logout(@Res({ passthrough: true }) res: Response) {
+    res.clearCookie('access_token', {
+      httpOnly: true,
+      secure: this.config.get('ENVIRONMENT') === 'PRODUCTION',
+      sameSite: 'lax',
+    });
+    return { message: 'Logged out successfully' };
   }
 }

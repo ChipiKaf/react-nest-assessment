@@ -8,11 +8,9 @@ import type { RootState } from "../store/store"; // adjust the import path as ne
  * Protected routes, can only be accessed by authenticated users
  */
 const ProtectedRoute: React.FC = () => {
-  const isAuthenticated = useSelector(
-    (state: RootState) => state.user.isAuthenticated
-  );
+  const user = useSelector((state: RootState) => state.user);
 
-  if (!isAuthenticated) {
+  if (!user.isAuthenticated && user.status !== "pending") {
     return <Navigate to="/auth" replace />;
   }
   return <Outlet />;

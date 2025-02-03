@@ -7,6 +7,7 @@ import { RootState } from "../store/store";
 import { config } from "../config/config";
 import { useAppDispatch } from "../hooks/useAppDispatch";
 import { clearNotification } from "../store/notification/notification.slice";
+import { checkAuthThunk } from "../store/user/user.thunks";
 
 export default function Layout() {
   const notification = useSelector((state: RootState) => state.notification);
@@ -22,6 +23,13 @@ export default function Layout() {
       dispatch(clearNotification());
     }, config.toastTimeout);
   }, [dispatch, notification]);
+
+  /**
+   * Check if cookie is still valid on initialization
+   */
+  useEffect(() => {
+    dispatch(checkAuthThunk());
+  }, []);
 
   return (
     <div className="layout__container">

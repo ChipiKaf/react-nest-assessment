@@ -72,6 +72,10 @@ const signUpFormSchema: yup.ObjectSchema<SignUpFormValues> = yup
     password: yup
       .string()
       .min(8, FormErrors.PASSWORD_LENGTH)
+      .matches(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]+$/,
+        FormErrors.PASSWORD_FORMAT
+      )
       .required(FormErrors.PASSWORD_REQUIRED),
   })
   .required();

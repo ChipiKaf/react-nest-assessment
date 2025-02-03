@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { loginThunk, signUpThunk } from "../store/user/user.thunks";
 import { useAppDispatch } from "../hooks/useAppDispatch";
+import { useNavigate } from "react-router-dom";
 
 interface SignUpFormValues {
   email: string;
@@ -75,13 +76,17 @@ const signUpFormSchema: yup.ObjectSchema<SignUpFormValues> = yup
   })
   .required();
 
+/**
+ * Page to handle signup and sign in
+ */
 export default function Authentication() {
   const [isSignUp, setIsSignUp] = useState(false);
+  const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    console.log(user);
+    if (user.isAuthenticated) navigate("/");
   }, [user]);
   const handleSignupFormSubmit = (data: SignUpFormValues) => {
     dispatch(
@@ -112,7 +117,12 @@ export default function Authentication() {
                 ? "Already have an account?"
                 : "Don't yet have an account?"}
             </div>
-            <Button type="button" background="transparent" onClick={onClick}>
+            <Button
+              type="button"
+              background="transparent"
+              onClick={onClick}
+              ariaLabel="Switch between login and sign up button"
+            >
               {isSignUp ? "Login" : "Sign up"}
             </Button>
           </div>

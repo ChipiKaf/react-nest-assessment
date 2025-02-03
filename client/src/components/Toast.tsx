@@ -1,11 +1,19 @@
 import React from "react";
 import "../styles/components/toast.scss";
+import { NotificationType } from "../types/NotificationState";
 type Props = {
-  color?: "success" | "warn" | "danger" | "neutral";
+  color?: NotificationType;
+  active: boolean;
+  message: string;
 };
 
-export default function Toast({ color }: Props) {
+/**
+ * Simple toast component
+ */
+export default function Toast({ color, active, message }: Props) {
   return (
-    <div className={`toast ${color || "neutral"}`}>This is a toast message</div>
+    <div className={`toast ${active ? "active" : ""} ${color || "neutral"}`}>
+      {message}
+    </div>
   );
 }

@@ -21,10 +21,20 @@
     color: #fff;
   }
 
+  &.black {
+    background-color: black;
+  }
+
   &.transparent {
     border: none;
     background-color: transparent;
     color: black;
+  }
+
+  &.outline {
+    background-color: transparent !important;
+    color: black !important;
+    border: 1px solid black;
   }
 
   &:hover {

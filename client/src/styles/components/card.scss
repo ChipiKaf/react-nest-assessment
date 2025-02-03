@@ -2,6 +2,7 @@
 @use "../abstracts/mixins";
 .card {
   @include mixins.elevated-bs;
+  background-color: white;
   padding: 4vh 4vw;
   border-radius: 0.5rem;
 

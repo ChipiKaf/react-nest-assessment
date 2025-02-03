@@ -1,0 +1,40 @@
+@use "../abstracts/mixins";
+@use "../abstracts/variables";
+@use "../base/typography";
+@use "../base/animations";
+.home__container {
+  @include mixins.page-full;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+
+  & .show-delay {
+    opacity: 0;
+    animation: show-delay 0.5s 2.2s forwards;
+  }
+
+  & .home__section {
+    overflow: hidden;
+    // padding: 2rem;
+    text-align: center;
+  }
+  & .home__text {
+    font-size: typography.$font-xl;
+    font-family: typography.$headings-font-family;
+    font-weight: typography.$weight-light;
+    padding: 0 1rem;
+    margin-bottom: 0.5rem;
+    // opacity: 0;
+    transform: translateY(150%);
+    animation: slide-up 1s forwards 1s;
+  }
+
+  & .line {
+    height: 0.1rem;
+    // opacity: 0;
+    background-color: #000;
+    margin: 0 auto;
+    animation: draw-line 1s forwards;
+    width: 0;
+  }
+}

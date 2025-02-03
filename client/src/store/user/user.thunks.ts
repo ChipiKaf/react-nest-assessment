@@ -19,7 +19,9 @@ export const loginThunk = createAsyncThunk<
     });
     if (!response.ok) {
       const error = await response.json();
-      return thunkAPI.rejectWithValue(error.message[0]);
+      const message =
+        typeof error.message === "string" ? error.message : error.message[0];
+      return thunkAPI.rejectWithValue(message);
     }
     const data: User = await response.json();
     return data;
@@ -45,7 +47,9 @@ export const signUpThunk = createAsyncThunk<
     });
     if (!response.ok) {
       const error = await response.json();
-      return thunkAPI.rejectWithValue(error.message[0]);
+      const message =
+        typeof error.message === "string" ? error.message : error.message[0];
+      return thunkAPI.rejectWithValue(message);
     }
     const data: User = await response.json();
     return data;
@@ -69,7 +73,9 @@ export const checkAuthThunk = createAsyncThunk<
     });
     if (!response.ok) {
       const error = await response.json();
-      return thunkAPI.rejectWithValue(error.message[0]);
+      const message =
+        typeof error.message === "string" ? error.message : error.message[0];
+      return thunkAPI.rejectWithValue(message);
     }
     const data: User = await response.json();
     return data;

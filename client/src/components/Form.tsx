@@ -73,7 +73,12 @@ export default function Form<T extends FieldValues>({
       onSubmit={handleSubmit(onSubmit as SubmitHandler<T>)}
     >
       {fields.map((field) => renderField(field, register))}
-      <Button type="submit" isLoading={isLoading} animate={true}>
+      <Button
+        type="submit"
+        isLoading={isLoading}
+        animate={true}
+        ariaLabel="Submit form button"
+      >
         Submit
       </Button>
     </form>

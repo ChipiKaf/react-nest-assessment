@@ -19,13 +19,13 @@
   @include mixins.elevated-bs;
 
   &.active {
-    bottom: 3rem;
+    bottom: 1rem;
   }
   &.success {
     background-color: variables.$color-success;
     color: white;
   }
-  &.danger {
+  &.error {
     background-color: variables.$color-danger;
     color: white;
   }

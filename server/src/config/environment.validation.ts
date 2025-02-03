@@ -15,7 +15,7 @@ export default Joi.object({
   DATABASE_CONNECTION_STRING: Joi.string().default(
     'mongodb://root:password@localhost:27017/mydatabase?authSource=admin',
   ), // Default to local docker mongo
-  DATABASE_NAME: Joi.string(),
+  DATABASE_NAME: Joi.string().default('mydatabase'),
   JWT_SECRET: Joi.string().default('my-secret-jwt-token'),
   JWT_TOKEN_AUDIENCE: Joi.string().default('localhost'),
   JWT_TOKEN_ISSUER: Joi.string().default('localhost'),

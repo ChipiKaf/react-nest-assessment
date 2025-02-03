@@ -26,7 +26,7 @@ This repository is split into two main parts:
 1. **Navigate to the Server Folder:** ```cd server```
 2. **Install Dependencies**: ```npm install```
 3. **Start Databse**: ```npm run:db```
-4. **Development Server**: ```npm start:dev``` (Do this in a seperate terminal)
+4. **Development Server**: ```npm start:dev```
 
 
 ## Environment variables

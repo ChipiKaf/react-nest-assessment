@@ -1,0 +1,36 @@
+@use "../abstracts/mixins";
+@use "../base/typography";
+@use "../abstracts/variables";
+.toast {
+  position: fixed;
+  min-width: 25vw;
+  transition: bottom 0.4s;
+  left: 50%;
+  min-height: 5rem;
+  font-size: typography.$font-sm;
+  border-radius: 0.5rem;
+  transform: translate(-50%, -50%);
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0);
+  bottom: -100%;
+  @include mixins.elevated-bs;
+
+  &.active {
+    bottom: 3rem;
+  }
+  &.success {
+    background-color: variables.$color-success;
+    color: white;
+  }
+  &.danger {
+    background-color: variables.$color-danger;
+    color: white;
+  }
+  &.warn {
+    background-color: variables.$color-warn;
+    color: white;
+  }
+}

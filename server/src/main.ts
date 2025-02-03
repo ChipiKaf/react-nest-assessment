@@ -24,6 +24,15 @@ async function bootstrap() {
   const logger = app.get(AppLogger);
   app.useLogger(logger);
   logger.log('Manual test log: logger is working', 'Bootstrap');
+
+  /**
+   * Cors
+   */
+  app.enableCors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+  });
+
   /**
    * Middleware
    */

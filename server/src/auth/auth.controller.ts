@@ -12,10 +12,10 @@ import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { SignUpDto } from './dtos/signup.dto';
 import { AuthService } from './providers/auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
-import { Request, Response } from 'express';
-import { User } from 'src/users/user.schema';
+import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
 import { BaseController } from './BaseController';
+import { AuthenticatedRequest } from 'src/interfaces/authenticated-request.interface';
 
 @Controller('auth')
 export class AuthController extends BaseController {
@@ -36,14 +36,19 @@ export class AuthController extends BaseController {
   @UseGuards(LocalAuthGuard)
   @Post('login')
   @HttpCode(HttpStatus.OK)
-  public login(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
+  public login(
+    @Req() req: AuthenticatedRequest,
+    @Res({ passthrough: true }) res: Response,
+  ) {
     const { user } = req;
-    const token = this.authService.login(user as User);
+    const token = this.authService.login(user);
 
     // Wrap token in httpOnly cookie to prevent XSS
     this.setAccessTokenCookie(res, token.access_token);
 
-    return { message: 'Logged in successfully' };
+    const { email, name } = user;
+
+    return { email, name };
   }
 
   @ApiOperation({
@@ -59,6 +64,8 @@ export class AuthController extends BaseController {
     // Wrap token in httpOnly cookie to prevent XSS
     this.setAccessTokenCookie(res, token.access_token);
 
-    return { message: 'Signed up successfully' };
+    const { email, name } = signUpDto;
+
+    return { email, name };
   }
 }

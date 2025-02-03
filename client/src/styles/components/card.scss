@@ -1,9 +1,9 @@
 @use "../base/typography"; // This creates a namespace "typography"
-
+@use "../abstracts/mixins";
 .card {
+  @include mixins.elevated-bs;
   padding: 4vh 4vw;
   border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
 
   & &__header {
     margin-bottom: 2rem;
@@ -12,5 +12,10 @@
     font-family: typography.$headings-font-family;
     font-weight: typography.$weight-bold;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  }
+
+  & &__body {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
   }
 }

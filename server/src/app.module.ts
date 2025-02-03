@@ -10,6 +10,7 @@ import environmentValidation from './config/environment.validation';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppLogger } from './logger/app.logger';
 import logsConfig from './config/logs.config';
+import { LoggerModule } from './logger/logger.module';
 
 const ENV = process.env.NODE_ENV;
 
@@ -17,6 +18,7 @@ const ENV = process.env.NODE_ENV;
   imports: [
     UsersModule,
     AuthModule,
+    LoggerModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: !ENV ? '.env' : `.env${ENV}`,
@@ -34,7 +36,6 @@ const ENV = process.env.NODE_ENV;
     }),
   ],
   controllers: [AppController],
-  providers: [AppService, AppLogger,],
-  exports: [AppLogger]
+  providers: [AppService],
 })
 export class AppModule {}

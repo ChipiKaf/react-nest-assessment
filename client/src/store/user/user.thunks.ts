@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { User } from "../../types/User";
+import { config } from "../../config/config";
 
 /**
  * Login thunk
@@ -10,14 +11,15 @@ export const loginThunk = createAsyncThunk<
   { rejectValue: string }
 >("user/login", async (credentials, thunkAPI) => {
   try {
-    const response = await fetch("/api/login", {
+    const response = await fetch(`${config.baseUrl}/api/auth/login`, {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(credentials),
     });
     if (!response.ok) {
-      return thunkAPI.rejectWithValue("Login failed");
+      const error = await response.json();
+      return thunkAPI.rejectWithValue(error.message[0]);
     }
     const data: User = await response.json();
     return data;
@@ -35,14 +37,15 @@ export const signUpThunk = createAsyncThunk<
   { rejectValue: string }
 >("user/signup", async (registrationInfo, thunkAPI) => {
   try {
-    const response = await fetch("/api/signup", {
+    const response = await fetch(`${config.baseUrl}/api/auth/register`, {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(registrationInfo),
     });
     if (!response.ok) {
-      return thunkAPI.rejectWithValue("Sign up failed");
+      const error = await response.json();
+      return thunkAPI.rejectWithValue(error.message[0]);
     }
     const data: User = await response.json();
     return data;
@@ -60,12 +63,13 @@ export const checkAuthThunk = createAsyncThunk<
   { rejectValue: string }
 >("user/checkAuth", async (_, thunkAPI) => {
   try {
-    const response = await fetch("/api/me", {
+    const response = await fetch(`${config.baseUrl}/api/auth/me`, {
       method: "GET",
       credentials: "include", // Send cookies
     });
     if (!response.ok) {
-      return thunkAPI.rejectWithValue("Not authenticated");
+      const error = await response.json();
+      return thunkAPI.rejectWithValue(error.message[0]);
     }
     const data: User = await response.json();
     return data;

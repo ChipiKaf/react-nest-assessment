@@ -18,6 +18,7 @@ import Button from "./Button";
 interface FormProps<T extends FieldValues> {
   fields: FormField[];
   schema: yup.ObjectSchema<T>;
+  isLoading: boolean;
   onSubmit: (data: T) => void;
   defaultValues?: Partial<T>;
 }
@@ -29,6 +30,7 @@ export default function Form<T extends FieldValues>({
   fields,
   schema,
   onSubmit,
+  isLoading,
   defaultValues,
 }: FormProps<T>) {
   const resolver = yupResolver(schema) as unknown as Resolver<T>;
@@ -71,7 +73,9 @@ export default function Form<T extends FieldValues>({
       onSubmit={handleSubmit(onSubmit as SubmitHandler<T>)}
     >
       {fields.map((field) => renderField(field, register))}
-      <Button type="submit">Submit</Button>
+      <Button type="submit" isLoading={isLoading} animate={true}>
+        Submit
+      </Button>
     </form>
   );
 }

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AuthState } from "../../types/AuthState";
-import { loginThunk } from "./user.thunks";
+import { loginThunk, signUpThunk } from "./user.thunks";
 
 const initialState: AuthState = {
   isAuthenticated: false,
@@ -34,6 +34,21 @@ export const userSlice = createSlice({
         state.name = action.payload.name;
       })
       .addCase(loginThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Login failed";
+      });
+    builder
+      .addCase(signUpThunk.pending, (state) => {
+        state.loading = true;
+        state.error = undefined;
+      })
+      .addCase(signUpThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.isAuthenticated = true;
+        state.email = action.payload.email;
+        state.name = action.payload.name;
+      })
+      .addCase(signUpThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || "Login failed";
       });

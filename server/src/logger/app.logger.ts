@@ -9,7 +9,7 @@ export class AppLogger extends ConsoleLogger {
   constructor(private configService: ConfigService) {
     super();
     this.logger = winston.createLogger({
-      level: this.configService.get<string>('level')  ,
+      level: this.configService.get<string>('level'),
       format: winston.format.combine(
         winston.format.timestamp(),
         winston.format.json(),

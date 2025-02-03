@@ -1,24 +1,51 @@
 @use "../abstracts/variables";
 @use "../base/typography";
+@use "../abstracts/mixins";
 // Buttons styles
 .btn {
+  position: relative;
   user-select: none;
   display: inline-block;
   min-width: 7rem;
-  min-height: 3vh;
+  min-height: 3.8rem;
   font-size: 1.3rem;
   position: relative;
   overflow: hidden;
   padding: 1rem;
-  color: #fff;
   transition: all 0.5s;
-  background-color: variables.$color-primary;
   font-family: typography.$body-alt-font-family;
-  border: 1px solid variables.$color-primary;
+
+  &.primary {
+    border: 1px solid variables.$color-primary;
+    background-color: variables.$color-primary;
+    color: #fff;
+  }
+
+  &.transparent {
+    border: none;
+    background-color: transparent;
+    color: black;
+  }
 
   &:hover {
     cursor: pointer;
     background-color: transparent;
     color: variables.$color-primary;
+  }
+
+  &.animate .text {
+    transition: left 0.3s;
+    @include mixins.absolute-far-left;
+    &.active {
+      @include mixins.center-absolute;
+    }
+  }
+
+  &.animate .loader {
+    transition: left 0.3s;
+    @include mixins.absolute-far-right;
+    &.active {
+      @include mixins.center-absolute;
+    }
   }
 }
